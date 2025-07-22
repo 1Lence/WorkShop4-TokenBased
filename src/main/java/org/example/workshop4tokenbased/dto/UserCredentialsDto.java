@@ -1,14 +1,11 @@
 package org.example.workshop4tokenbased.dto;
 
-import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 
 @Builder
 public record UserCredentialsDto(
-        String login,
-        @Email
-        String email,
-        //Добавить валидацию
-        String password
+        @NotBlank String login,
+        @NotBlank String password
 ) {
 }

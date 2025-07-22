@@ -6,6 +6,7 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.workshop4tokenbased.dto.JwtAuthDto;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,8 +19,10 @@ import java.util.Date;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class JwtService {
-    @Value("c26b3898372adb0472cc9f34028d7268")
+    //TODO: Убрать из кода
+    @Value("43f0dc29f0d139154fa90aa78f9483f9ead546053f30ee978936e2aea9eec8090c1a20695ca59e486d8e8c90")
     private String jwtSecret;
 
     public JwtAuthDto generateAuthToken(String login) {
@@ -38,6 +41,7 @@ public class JwtService {
                 .getSubject();
     }
 
+    //TODO: Переделать в ControllerAdvice
     public boolean validateJwtToken(String token) {
         try {
             Jwts.parser()

@@ -1,17 +1,24 @@
 package org.example.workshop4tokenbased.service.mappers;
 
-import org.example.workshop4tokenbased.dto.CustomUserDetails;
+import lombok.RequiredArgsConstructor;
+import org.example.workshop4tokenbased.dto.UserDtoRequest;
 import org.example.workshop4tokenbased.entity.User;
-import org.springframework.stereotype.Service;
+import org.example.workshop4tokenbased.entity.model.UserRoles;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
+@RequiredArgsConstructor
 public class UserMapper {
+    private final PasswordEncoder passwordEncoder;
 
-    public CustomUserDetails toUserDetails(User user) {
-        return CustomUserDetails
-                .builder()
-                .user(user)
-                .authorities(user.getRoles().getAuthorities())
+    //TODO: Добавить соль в пароль
+    public User toUser(UserDtoRequest userDtoRequest) {
+        return User.builder()
+                .roles(UserRoles.valueOf(userDtoRequest.role()))
+                .login(userDtoRequest.login())
+                .email(userDtoRequest.email())
+                .password(passwordEncoder.encode(userDtoRequest.password()))
                 .build();
     }
 }

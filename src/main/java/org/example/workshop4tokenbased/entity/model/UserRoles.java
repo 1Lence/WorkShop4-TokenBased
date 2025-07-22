@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public enum UserRoles implements GrantedAuthority {
     USER(Set.of(Permission.DEVELOPERS_READ)),
     USER_VIP(Set.of(Permission.DEVELOPERS_READ, Permission.DEVELOPERS_VIP_READ)),
-    ADMIN(Set.of(Permission.DEVELOPERS_READ, Permission.DEVELOPERS_WRITE));
+    ADMIN(Set.of(Permission.DEVELOPERS_READ, Permission.DEVELOPERS_VIP_READ, Permission.DEVELOPERS_WRITE));
 
     private final Set<Permission> permissions;
 
