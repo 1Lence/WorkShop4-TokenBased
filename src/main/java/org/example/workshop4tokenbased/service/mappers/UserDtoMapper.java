@@ -5,9 +5,10 @@ import org.example.workshop4tokenbased.entity.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserDtoMapper {
+public class UserDtoMapper implements BaseMapper<UserDtoResponse, User> {
 
-    public UserDtoResponse toUserDtoResponse(User user){
+    @Override
+    public UserDtoResponse map(User user){
         return UserDtoResponse.builder()
                 .id(user.getId())
                 .email(user.getEmail())

@@ -5,9 +5,10 @@ import org.example.workshop4tokenbased.entity.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CustomUserDetailsMapper {
+public class CustomUserDetailsMapper implements BaseMapper<CustomUserDetails, User> {
 
-    public CustomUserDetails toUserDetails(User user) {
+    @Override
+    public CustomUserDetails map(User user) {
         return CustomUserDetails
                 .builder()
                 .user(user)

@@ -19,6 +19,6 @@ public class UserDetailServiceIml implements UserDetailsService {
     public CustomUserDetails loadUserByUsername(String login) throws EntityNotFoundException {
         User user = userRepository.findByLogin(login)
                 .orElseThrow(() -> new EntityNotFoundException("User does not exists"));
-        return customUserDetailsMapper.toUserDetails(user);
+        return customUserDetailsMapper.map(user);
     }
 }

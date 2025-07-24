@@ -2,7 +2,7 @@ package org.example.workshop4tokenbased.security;
 
 import lombok.RequiredArgsConstructor;
 import org.example.workshop4tokenbased.entity.model.Permission;
-import org.example.workshop4tokenbased.security.jwt.JwtFilter;
+import org.example.workshop4tokenbased.security.jwt.JweFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -20,7 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity(jsr250Enabled = true)
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final JwtFilter jwtFilter;
+    private final JweFilter jweFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -30,9 +30,10 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/user/**").hasAuthority(Permission.DEVELOPERS_READ.getPermission())
                         .requestMatchers("/api/v1/admin/**").hasAuthority(Permission.DEVELOPERS_WRITE.getPermission())
                         .requestMatchers("/api/v1/vip/**").hasAuthority(Permission.DEVELOPERS_VIP_READ.getPermission())
-                        .requestMatchers("/api/logout").hasAuthority(Permission.DEVELOPERS_READ.getPermission()))
+                        .requestMatchers("/api/logout").hasAuthority(Permission.DEVELOPERS_READ.getPermission())
+                        .anyRequest().permitAll())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jweFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

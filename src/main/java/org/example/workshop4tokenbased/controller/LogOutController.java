@@ -2,7 +2,7 @@ package org.example.workshop4tokenbased.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.example.workshop4tokenbased.security.jwt.JwtFilter;
+import org.example.workshop4tokenbased.security.jwt.JweFilter;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/logout")
 @RequiredArgsConstructor
 public class LogOutController {
-    private final JwtFilter jwtFilter;
+    private final JweFilter jweFilter;
 
     @PostMapping
     public void logOut(HttpServletRequest request) {
-        jwtFilter.toBlackList(request);
+        jweFilter.toBlackList(request);
     }
 }

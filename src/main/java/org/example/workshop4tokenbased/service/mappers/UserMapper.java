@@ -9,11 +9,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class UserMapper {
+public class UserMapper implements BaseMapper<User, UserDtoRequest> {
     private final PasswordEncoder passwordEncoder;
 
     //TODO: Добавить соль в пароль
-    public User toUser(UserDtoRequest userDtoRequest) {
+    @Override
+    public User map(UserDtoRequest userDtoRequest) {
         return User.builder()
                 .roles(UserRoles.valueOf(userDtoRequest.role()))
                 .login(userDtoRequest.login())

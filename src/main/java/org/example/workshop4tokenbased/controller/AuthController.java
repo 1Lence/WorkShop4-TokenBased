@@ -1,5 +1,6 @@
 package org.example.workshop4tokenbased.controller;
 
+import com.nimbusds.jose.JOSEException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.workshop4tokenbased.dto.JwtAuthDto;
@@ -27,13 +28,13 @@ public class AuthController {
         try {
             JwtAuthDto dto = userService.signIn(userCredentialsDto);
             return ResponseEntity.ok(dto);
-        }catch (AuthenticationException e) {
+        }catch (AuthenticationException | JOSEException e) {
             throw new RuntimeException("Auth failed: " + e.getMessage());
         }
     }
 
     @PostMapping("/refresh")
-    public JwtAuthDto refresh(@RequestBody RefreshTokenDto refreshTokenDto) throws AuthenticationException {
+    public JwtAuthDto refresh(@RequestBody RefreshTokenDto refreshTokenDto) throws AuthenticationException, JOSEException {
         return userService.refreshToken(refreshTokenDto);
     }
 
