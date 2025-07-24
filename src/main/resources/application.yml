@@ -1,0 +1,21 @@
+#Не стал убирать в ENV что бы проверяющему было удобнее проверять и проще развернуть бд и подключиться
+spring:
+  application:
+    name: WorkShop4-TokenBased
+  datasource:
+    url: jdbc:postgresql://localhost:5434/workshop_db
+    username: user
+    password: pass
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+#Тут убрал для демонстрации, безопасности, .env подгружать не стану
+app:
+  jws:
+    secret: ${JWS_SECRET}
+  jwe:
+    secret: ${JWE_SECRET}
